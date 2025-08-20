@@ -361,22 +361,27 @@ Resources:
                   apt update
                   sleep 120
                   dpkg --configure -a
+                  echo "Installing zip"
                   apt install -y zip
+                  echo "Installing python3-pip"
                   apt install -y python3-pip
+                  echo "Installing jq"
                   apt install -y jq
+                  echo "Installing python3-venv"
                   apt install -y python3-venv
                   echo "Installing Node.js v20"
                   curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
                   apt-get install -y nodejs
-                  echo "Node.js $(node -v) and npm $(npm -v) installed."
-                  echo "Cypress dependencies"
+                  echo "Installing chrome"
+                  echo "Install Cypress dependencies"
                   apt-get install -y \libgtk2.0-0 libgtk-3-0 libgbm-dev \libnotify-dev libnss3 libxss1 \libasound2 libxtst6 xauth xvfb || true
-                  echo "All Cypress dependencies already installed."
-                  echo "Google Chrome"
-                  wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-                  apt-get install -y ./google-chrome-stable_current_amd64.deb || apt -f install -y
-                  rm -f google-chrome-stable_current_amd64.deb
-                  echo "Installing Chrome installed"
+                  apt-get install -y libasound2t64
+                  echo "Install chrome"
+                  wget -O /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+                  apt install -y /tmp/chrome.deb || {
+                    apt-get -f install -y
+                    apt install -y /tmp/chrome.deb
+                    }
                   echo "Installing PostgreSQL database client"
                   apt install -y postgresql-client
                   echo "Installing MySQL database client"
