@@ -369,8 +369,8 @@ Resources:
                   apt install -y jq
                   echo "Installing python3-venv"
                   apt install -y python3-venv
-                  echo "Installing Node.js v20"
-                  curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+                  echo "Installing nodejs 18"
+                  curl -fsSL "https://deb.nodesource.com/setup_18.x" | $(need_sudo) -E bash -
                   apt-get install -y nodejs
                   echo "Installing chrome"
                   echo "Install Cypress dependencies"
