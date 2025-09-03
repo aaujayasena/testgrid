@@ -363,11 +363,8 @@ Resources:
                   apt update
                   sleep 120
                   dpkg --configure -a
-                  echo "Installing zip"
                   apt install -y zip
-                  echo "Installing python3-pip"
                   apt install -y python3-pip
-                  echo "Installing jq"
                   apt install -y jq
                   echo "Installing PostgreSQL database client"
                   apt install -y postgresql-client
@@ -798,3 +795,4 @@ Metadata:
         - abbdb5e8-f28b-4bc6-8b63-da9595b59c4a
       dependson:
         - 5352b4e9-46ed-4a23-8bdc-bafc3666cbbd
+        
