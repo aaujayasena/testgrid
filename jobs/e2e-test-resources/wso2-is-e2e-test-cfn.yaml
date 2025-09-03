@@ -4,7 +4,7 @@ Parameters:
   DB:
     Type: String
     Default: MySQL-5.7
-    AllowedValues: 
+    AllowedValues:
       - MySQL-5.7
       - MySQL-8.0
       - MariaDB-11.4.3
@@ -20,7 +20,7 @@ Parameters:
       - SQLServer-SE-14.00
       - SQLServer-SE-15.00
       - SQLServer-SE-16.00
-  DBEngine: 
+  DBEngine:
     Type: String
     Default: mysql
     Description: Database Engine
@@ -42,7 +42,7 @@ Parameters:
     Default: 5.7
     Description: Database Engine version
     MinLength: 1
-  DBName: 
+  DBName:
     Type: String
     Default: WSO2DB
     Description: Database Name
@@ -117,7 +117,7 @@ Parameters:
       - c6a.large
       - c6a.xlarge
       - c6a.2xlarge
-      - c6a.4xlarge 
+      - c6a.4xlarge
       - c7g.large
       - c7g.xlarge
       - c7g.2xlarge
@@ -133,7 +133,7 @@ Parameters:
     Description: Enter product name
   ProductVersion:
     Type: String
-    Default: 7.2.0-m6
+    Default: 7.2.0-alpha
     Description: Enter product version
   OperatingSystem:
     Type: String
@@ -165,7 +165,7 @@ Parameters:
     Type: String
     Default: '3.6.3'
     Description: Enter required Maven version.
-  CustomUserData: 
+  CustomUserData:
    Type: String
    Default: "echo"
    Description: Enter custome user data scripts here.
@@ -187,6 +187,8 @@ Mappings:
       DBEngine: "mysql_5.7"
     MySQL-8.0:
       DBEngine: "mysql_8.0"
+    MySQL-8.4.6:
+      DBEngine: "mysql_8.4.6"
     MariaDB-11.4.3:
       DBEngine: "mariadb_11.4.3"
     Postgres-12.18:
@@ -342,7 +344,7 @@ Resources:
         Fn::Base64:
           !Sub
             - |-
-              #cloud-boothook 
+              #cloud-boothook
               #!/bin/bash
 
               exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
