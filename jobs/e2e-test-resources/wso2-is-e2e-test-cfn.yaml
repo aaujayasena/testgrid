@@ -369,21 +369,6 @@ Resources:
                   apt install -y python3-pip
                   echo "Installing jq"
                   apt install -y jq
-                  echo "Installing python3-venv"
-                  apt install -y python3-venv
-                  echo "Installing nodejs 18"
-                  curl -fsSL "https://deb.nodesource.com/setup_18.x" | $(need_sudo) -E bash -
-                  apt-get install -y nodejs
-                  echo "Installing chrome"
-                  echo "Install Cypress dependencies"
-                  apt-get install -y libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libnss3 libxss1 libasound2t64 libxtst6 xauth xvfb || true
-                  apt-get install -y libasound2t64
-                  echo "Install chrome"
-                  wget -O /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-                  apt install -y /tmp/chrome.deb || {
-                    apt-get -f install -y
-                    apt install -y /tmp/chrome.deb
-                    }
                   echo "Installing PostgreSQL database client"
                   apt install -y postgresql-client
                   echo "Installing MySQL database client"
