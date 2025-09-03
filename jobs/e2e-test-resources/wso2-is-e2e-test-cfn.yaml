@@ -4,27 +4,23 @@ Parameters:
   DB:
     Type: String
     Default: MySQL-5.7
-    AllowedValues:
-      - Db2-11.5
+    AllowedValues: 
       - MySQL-5.7
       - MySQL-8.0
-      - MySQL-8.4.6
       - MariaDB-11.4.3
-      - MariaDB-11.4.8
       - Postgres-12.18
       - Postgres-13.17
       - Postgres-14.14
       - Postgres-15.10
       - Postgres-16.6
       - Postgres-17.2
-      - Postgres-17.5
       - Oracle-SE2-19.0
       - Oracle-SE2-21.0
       - SQLServer-SE-13.00
       - SQLServer-SE-14.00
       - SQLServer-SE-15.00
       - SQLServer-SE-16.00
-  DBEngine:
+  DBEngine: 
     Type: String
     Default: mysql
     Description: Database Engine
@@ -46,7 +42,7 @@ Parameters:
     Default: 5.7
     Description: Database Engine version
     MinLength: 1
-  DBName:
+  DBName: 
     Type: String
     Default: WSO2DB
     Description: Database Name
@@ -121,7 +117,7 @@ Parameters:
       - c6a.large
       - c6a.xlarge
       - c6a.2xlarge
-      - c6a.4xlarge
+      - c6a.4xlarge 
       - c7g.large
       - c7g.xlarge
       - c7g.2xlarge
@@ -137,7 +133,7 @@ Parameters:
     Description: Enter product name
   ProductVersion:
     Type: String
-    Default: 7.1.0-rc2
+    Default: 7.2.0-m6
     Description: Enter product version
   OperatingSystem:
     Type: String
@@ -169,7 +165,7 @@ Parameters:
     Type: String
     Default: '3.6.3'
     Description: Enter required Maven version.
-  CustomUserData:
+  CustomUserData: 
    Type: String
    Default: "echo"
    Description: Enter custome user data scripts here.
@@ -191,12 +187,8 @@ Mappings:
       DBEngine: "mysql_5.7"
     MySQL-8.0:
       DBEngine: "mysql_8.0"
-    MySQL-8.4.6:
-      DBEngine: "mysql_8.4.6"
     MariaDB-11.4.3:
       DBEngine: "mariadb_11.4.3"
-    MariaDB-11.4.8:
-      DBEngine: "mariadb_11.4.8"
     Postgres-12.18:
       DBEngine: "postgres_12.18"
     Postgres-13.17:
@@ -209,8 +201,6 @@ Mappings:
       DBEngine: "postgres_16.6"
     Postgres-17.2:
       DBEngine: "postgres_17.2"
-    Postgres-17.5:
-      DBEngine: "postgres_17.5"
     SQLServer-SE-13.00:
       DBEngine: "sqlserver-se_13.00"
     SQLServer-SE-14.00:
@@ -352,7 +342,7 @@ Resources:
         Fn::Base64:
           !Sub
             - |-
-              #cloud-boothook
+              #cloud-boothook 
               #!/bin/bash
 
               exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
@@ -371,10 +361,27 @@ Resources:
                   apt update
                   sleep 120
                   dpkg --configure -a
+                  echo "Installing zip"
                   apt install -y zip
+                  echo "Installing python3-pip"
                   apt install -y python3-pip
+                  echo "Installing jq"
                   apt install -y jq
+                  echo "Installing python3-venv"
                   apt install -y python3-venv
+                  echo "Installing nodejs 18"
+                  curl -fsSL "https://deb.nodesource.com/setup_18.x" | $(need_sudo) -E bash -
+                  apt-get install -y nodejs
+                  echo "Installing chrome"
+                  echo "Install Cypress dependencies"
+                  apt-get install -y libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libnss3 libxss1 libasound2t64 libxtst6 xauth xvfb || true
+                  apt-get install -y libasound2t64
+                  echo "Install chrome"
+                  wget -O /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+                  apt install -y /tmp/chrome.deb || {
+                    apt-get -f install -y
+                    apt install -y /tmp/chrome.deb
+                    }
                   echo "Installing PostgreSQL database client"
                   apt install -y postgresql-client
                   echo "Installing MySQL database client"
@@ -610,7 +617,7 @@ Resources:
         - Key: Name
           Value: !Join
             - ''
-            - - 'IAM__intg-test__'
+            - - 'IAM__e2e-test__'
               - !Ref OperatingSystem
               - '__'
               - !Ref DBEngine
