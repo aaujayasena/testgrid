@@ -372,7 +372,11 @@ Resources:
                   echo "Installing nodejs 18"
                   curl -fsSL "https://deb.nodesource.com/setup_18.x" | $(need_sudo) -E bash -
                   apt-get install -y nodejs
-                  echo "Installing chrome"
+                  echo 'export PATH="/usr/bin:/usr/local/bin:$PATH"' >> /etc/profile.d/node.sh
+                  chmod +x /etc/profile.d/node.sh
+                  export PATH="/usr/bin:/usr/local/bin:$PATH"
+                  echo "Installing npm"
+                  apt-get install -y npm
                   echo "Install Cypress dependencies"
                   apt-get install -y \libgtk2.0-0 libgtk-3-0 libgbm-dev \libnotify-dev libnss3 libxss1 \libasound2 libxtst6 xauth xvfb || true
                   apt-get install -y libasound2t64
@@ -382,6 +386,7 @@ Resources:
                     apt-get -f install -y
                     apt install -y /tmp/chrome.deb
                     }
+                  echo "Chrome: $(google-chrome --version 2>/dev/null)"
                   echo "Installing PostgreSQL database client"
                   apt install -y postgresql-client
                   echo "Installing MySQL database client"
